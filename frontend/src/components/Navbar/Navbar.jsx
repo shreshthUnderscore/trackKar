@@ -7,7 +7,7 @@ function Navbar() {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/sign-up">Login</Link>
+        <Link to="/login">Login</Link>
       </li>
       <li>
         <Link to="/sign-up">Sign Up</Link>

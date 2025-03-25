@@ -1,15 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import LandingPage from "./LandingPage/LandingPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 
-import SignUpForm from "./SignUp/SignUpForm";
+import SignUpForm from "./components/SignUp/SignUpForm";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage />,
-    children: [{ path: "sign-up", element: <SignUpForm /> }],
+    children: [
+      { path: "sign-up", element: <SignUpForm /> },
+      { path: "login", element: <SignUpForm /> },
+    ],
   },
 ]);
 

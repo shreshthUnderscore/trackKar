@@ -9,6 +9,8 @@ const loginRouter = require("./routers/loginRouter");
 const cors = require("cors");
 const MongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
+const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
 
 // Initialize database connection
 mongoose
@@ -16,9 +18,14 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // Your React app URL
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 app.use(
@@ -35,6 +42,8 @@ app.use(
 // Initialize passport
 passport.use(
   new LocalStrategy(async (username, password, done) => {
+    console.log(username);
+    console.log(password);
     try {
       const user = await User.findOne({ username: username });
 
@@ -60,15 +69,15 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((userId, done) => {
-  User.findById(userId)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch((err) => done(err));
+  try {
+    const user = User.findById(userId);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
 });
-app.use(passport.initialize());
+
 app.use(passport.session());
-require("./config/passport");
 
 // Routes
 app.use("/sign-up", signupRouter);

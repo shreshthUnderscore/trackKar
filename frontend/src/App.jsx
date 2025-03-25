@@ -1,9 +1,6 @@
 import "./App.css";
-import LandingPage from "./LandingPage/LandingPage";
-
-import SignUpForm from "./SignUp/SignUpForm";
 import { Children } from "react";
-
+import LandingPage from "@/LandingPage/LandingPage";
 function App() {
   return <LandingPage />;
 }

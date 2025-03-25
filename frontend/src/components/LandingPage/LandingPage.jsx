@@ -1,5 +1,5 @@
 import { React } from "react";
-import SignUp from "../SignUp/SignUpForm";
+import SignUpForm from "../SignUp/SignUpForm";
 import Navbar from "../Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 

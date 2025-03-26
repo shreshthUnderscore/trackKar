@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://127.0.0.1:5173", // Be explicit with the origin
+    origin: "http://127.0.0.1:5173",
     credentials: true,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
@@ -29,16 +29,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "cats",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     store: MongoStore.create({
       mongoUrl: "mongodb://127.0.0.1:27017/trackKar",
+      collectionName: "sessions",
+      autoRemove: "disabled",
     }),
     cookie: {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000 * 30,
     },
   })
 );

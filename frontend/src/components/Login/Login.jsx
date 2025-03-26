@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [error, setError] = useState("");
@@ -7,48 +7,48 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    setError("");
 
     const formData = new FormData(event.target);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            username: formData.get("username"),
-            password: formData.get("password"),
-          }),
-        }
-      );
+      const response = await fetch(`http://localhost:3000/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username: formData.get("username"),
+          password: formData.get("password"),
+        }),
+      });
 
       const data = await response.json();
-
+      console.log(data);
       if (response.ok) {
-        navigate("/");
-      } else {
         setError(data.message);
+        // navigate("/");
+      } else {
+        setError(data.message || "Login failed");
       }
     } catch (error) {
-      setError("Network error. Please try again.");
+      console.error("Login error:", error); // Add this line
+      setError(`Network error: ${error.message}`);
     }
   }
+
   return (
     <form onSubmit={handleSubmit}>
+      {error && <div style={{ color: "red" }}>{error}</div>}
       <label>
         Username:
-        <input name="username" />
+        <input name="username" type="text" required />
       </label>
       <label>
         Password:
-        <input name="password" />
+        <input name="password" type="password" required />
       </label>
-      <button type="submit">Submit</button>
+      <button type="submit">Login </button>
     </form>
   );
 }

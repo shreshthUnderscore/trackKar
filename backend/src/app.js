@@ -43,7 +43,9 @@ app.use(
     },
   })
 );
-
+//add a auth context to the frontend to allow the thingi to stay authenticated
+//implement crud features
+//look for designs
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -82,5 +84,18 @@ passport.deserializeUser(async (id, done) => {
 
 app.use("/sign-up", signupRouter);
 app.use("/login", loginRouter);
+app.get("check-auth", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({
+      isAuthenticated: true,
+      user: {
+        id: req.user._id,
+        username: req._construct.user.username,
+      },
+    });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

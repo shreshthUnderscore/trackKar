@@ -5,11 +5,22 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import SignUpForm from "./components/SignUp/SignUpForm";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/Login/Login";
+import ProtectedRoute from "./components/Protected/ProtectedRoute";
+import Protected from "./components/Protected/Protected";
+import { AuthProvider } from "./context/Authentication";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage />,
     children: [
+      {
+        path: "/protected",
+        element: (
+          <ProtectedRoute>
+            <Protected />
+          </ProtectedRoute>
+        ),
+      },
       { path: "sign-up", element: <SignUpForm /> },
       { path: "login", element: <Login /> },
     ],
@@ -18,6 +29,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

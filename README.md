@@ -1,6 +1,6 @@
 trackKar Roadmap
 
-- [ ] backend model and schema
-- [ ] setup express
-- [ ] setup Prisma
+- [x] backend model and schema
+- [x] setup express
+- [x] setup Prisma
 - [ ] setup JWT

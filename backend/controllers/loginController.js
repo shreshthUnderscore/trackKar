@@ -1,11 +1,13 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
+const JWT = require("jsonwebtoken");
+require("dotenv").config();
 
 async function login(req, res) {
   const { username, password } = req.body;
   try {
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         username,
       },
@@ -21,7 +23,9 @@ async function login(req, res) {
       res.status(501).json({ message: "Password Does Not Match" });
     }
 
-    res.status(200).json({ message: "user logged in" });
+    JWT.sign(user, process.env.JWT_SECRET, (err, token) => {
+      res.status(200).json({ message: "user logged in", token: token });
+    });
   } catch (error) {
     res.status(500).json({ message: `${error}` });
   }

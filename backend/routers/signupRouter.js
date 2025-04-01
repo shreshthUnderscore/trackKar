@@ -1,15 +1,24 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 router.post("/", async (req, res) => {
-  await prisma.user.create({
-    body: {
-      username: "shreshth",
-      password: "123",
-    },
-  });
+  const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        username,
+        password: hashedPassword,
+      },
+    });
+    res.send(200).json({ message: user });
+  } catch (error) {
+    res.send(500).json({ message: error });
+  }
 });
 
 router.get("/", async (req, res) => {

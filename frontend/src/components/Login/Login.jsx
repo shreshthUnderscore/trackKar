@@ -12,7 +12,7 @@ function Login() {
 
     try {
       const response = await fetch(`http://localhost:3000/login`, {
-        //add a auth context to the frontend to allow the thingi to stay authenticated
+        
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 trackKar Roadmap
 
-#Backend
+# Backend
 
 - [x] backend model and schema
 - [x] setup express
@@ -8,7 +8,7 @@ trackKar Roadmap
 - [x] setup JWT
 - [x] add endpoints for CRUD
 
-#Frontend
+# Frontend
 
 - [ ] store token from signup/login to localStorage or find other options
 - [ ] add login page

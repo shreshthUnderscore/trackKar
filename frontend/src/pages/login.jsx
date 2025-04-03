@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Login() {
   async function handleSubmit(event) {
@@ -19,12 +19,11 @@ export default function Login() {
         }
       );
       const data = await response.json();
-      console.log(data.message);
+      window.localStorage.setItem("token", data.token);
     } catch (err) {
       console.log(err);
     }
   }
-
   return (
     <>
       <form onSubmit={handleSubmit}>

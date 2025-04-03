@@ -1,9 +1,11 @@
-import { StrictMode } from "react";
+import { createContext, StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import LandingPage from "./pages/LandingPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignUp from "./pages/signup";
 import Login from "./pages/login";
+import Transactions from "./pages/transactions";
+import { AuthProvider } from "./components/AuthProvider/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +21,16 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/transactions",
+    element: <Transactions />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

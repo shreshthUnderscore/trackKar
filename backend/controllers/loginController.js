@@ -24,7 +24,9 @@ async function login(req, res) {
     }
 
     JWT.sign(user, process.env.JWT_SECRET, (err, token) => {
-      res.status(200).json({ message: "user logged in", token: token });
+      res
+        .status(200)
+        .json({ message: `user logged in ${token}`, token: token });
     });
   } catch (error) {
     res.status(500).json({ message: `${error}` });

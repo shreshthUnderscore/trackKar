@@ -6,7 +6,11 @@ const loginRouter = require("./routers/loginRouter");
 const transactionsRouter = require("./routers/transactionRouter");
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: false,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/login", loginRouter);

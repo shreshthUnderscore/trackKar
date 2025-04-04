@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Transactions() {
   const { isSignedIn } = useContext(AuthContext);
-  console.log(isSignedIn);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (isSignedIn === false) {

@@ -1,6 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      navigate("/transactions", { replace: true });
+    }
+  }, [navigate, isSignedIn]);
+
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -20,6 +31,7 @@ export default function Login() {
       );
       const data = await response.json();
       window.localStorage.setItem("token", data.token);
+      setIsSignedIn(true);
     } catch (err) {
       console.log(err);
     }

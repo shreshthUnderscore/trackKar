@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export function AuthProvider({ children }) {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const token = window.localStorage.getItem("token");
+  const [isSignedIn, setIsSignedIn] = useState(token ? true : false);
 
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    // console.log("token", token);
-    // console.log("isSignedIn", isSignedIn);
-  }, []);
+    console.log("value of sign state", isSignedIn);
+    console.log("value of token", token);
+  }, [token, isSignedIn]);
+
   return (
     <AuthContext.Provider value={{ isSignedIn, setIsSignedIn }}>
       {children}

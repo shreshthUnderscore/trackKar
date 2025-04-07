@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Navbar() {
+  const { isSignedIn } = useContext(AuthContext);
   return (
     <>
       <ul>
@@ -14,6 +16,11 @@ export default function Navbar() {
         <li>
           <Link to="/transactions">Transactions</Link>
         </li>
+        {isSignedIn && (
+          <li>
+            <Link to="/logout">Logout</Link>
+          </li>
+        )}
       </ul>
       <Outlet />
     </>

@@ -7,6 +7,7 @@ import Login from "./pages/login";
 import Transactions from "./pages/transactions";
 import { AuthProvider } from "./components/AuthProvider/AuthProvider";
 import Navbar from "./components/Navbar/Navbar";
+import Logout from "./pages/Logout";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       },
     ],
     errorElement: <div>404 Page not found</div>,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
 ]);
 
